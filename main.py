@@ -2,10 +2,15 @@
 
 # -*- coding:utf-8 -*-
 import BaseHTTPServer
-# import logging
+import logging
 import random
 import sys
 import time
+
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
+handler = logging.StreamHandler(sys.stdout)
+logger.addHandler(handler)
 
 
 # logging.basicConfig(format='%(asctime)s - %(pathname)s[line:%(lineno)d] - %(levelname)s: %(message)s',
@@ -25,9 +30,11 @@ class RequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
         cost_time = random.randint(150, 300)
         status = random.choice([200, 201, 302, 301, 400, 404, 403, 405, 500])
         if status <= 405:
-            sys.stdout.write("%s INFO: path=%s status=%s cost_time=%s " % (time.time(), path, status, cost_time / 10))
+            # sys.stdout.write("%s INFO: path=%s status=%s cost_time=%s " % (time.time(), path, status, cost_time / 10))
+            logger.info("%s INFO: path=%s status=%s cost_time=%s " % (time.time(), path, status, cost_time / 10))
         else:
-            sys.stdout.write("%s ERROR: path=%s status=%s cost_time=%s " % (time.time(), path, status, cost_time / 10))
+            logger.error("%s ERROR: path=%s status=%s cost_time=%s " % (time.time(), path, status, cost_time / 10))
+            # sys.stdout.write("%s ERROR: path=%s status=%s cost_time=%s " % (time.time(), path, status, cost_time / 10))
 
 
 if __name__ == '__main__':
