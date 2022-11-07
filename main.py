@@ -8,13 +8,14 @@ import sys
 import time
 
 logger = logging.getLogger()
-logger.setLevel(logging.INFO)
-handler = logging.StreamHandler(sys.stdout)
-logger.addHandler(handler)
-
-
-# logging.basicConfig(format='%(asctime)s - %(pathname)s[line:%(lineno)d] - %(levelname)s: %(message)s',
-#                     level=logging.DEBUG)
+# logger.setLevel(logging.INFO)
+# handler = logging.StreamHandler(sys.stdout)
+# logger.addHandler(handler)
+logging.basicConfig(level=logging.DEBUG,
+                    filename='./log/api.log',
+                    filemode='a',
+                    format='%(asctime)s - %(pathname)s[line:%(lineno)d] - %(levelname)s: %(message)s'
+                    )
 
 
 class RequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
