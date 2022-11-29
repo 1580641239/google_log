@@ -63,6 +63,6 @@ class RequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
 
 if __name__ == '__main__':
     logger = _get_logger('./log/api.log')
-    serverAddress = ('', 8080)
+    serverAddress = ('', 80)
     server = BaseHTTPServer.HTTPServer(serverAddress, RequestHandler)
     server.serve_forever()
