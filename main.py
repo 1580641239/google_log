@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
-import BaseHTTPServer
+# import BaseHTTPServer
 import random
 import time
 import sys
@@ -41,28 +41,32 @@ def _get_logger(filename):
     return log
 
 
-class RequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
-    Page = '200 OK'
+def printLog():
+    """
+    .....
+    :return:
+    """
 
-    def do_GET(self):
-        path = self.path
-        self.send_response(200)
-        self.send_header("Content-Type", "text/html")
-        self.send_header("Content-Length", str(len(self.Page)))
-        self.end_headers()
-        self.wfile.write(self.Page)
-        cost_time = random.randint(150, 300)
-        status = random.choice([200, 201, 302, 301, 400, 404, 403, 405, 500])
-        if status <= 405:
-            # sys.stdout.write("%s INFO: path=%s status=%s cost_time=%s " % (time.time(), path, status, cost_time / 10))
-            logger.info("%s INFO: path=%s status=%s cost_time=%s " % (time.time(), path, status, cost_time / 10))
-        else:
-            logger.error("%s ERROR: path=%s status=%s cost_time=%s " % (time.time(), path, status, cost_time / 10))
-            # sys.stdout.write("%s ERROR: path=%s status=%s cost_time=%s " % (time.time(), path, status, cost_time / 10))
+    cost_time = random.randint(150, 300)
+    status = random.choice([200, 201, 302, 301, 400, 404, 403, 405, 500])
+    path = "/api"
+    if status <= 405:
+        # sys.stdout.write("%s INFO: path=%s status=%s cost_time=%s " % (time.time(), path, status, cost_time / 10))
+        logger.info("%s INFO: path=%s status=%s cost_time=%s " % (time.time(), path, status, cost_time / 10))
+        logger2.info("%s INFO: path=%s status=%s cost_time=%s " % (time.time(), path, status, cost_time / 10))
+
+    else:
+        logger.error("%s ERROR: path=%s status=%s cost_time=%s " % (time.time(), path, status, cost_time / 10))
+        logger2.error("%s ERROR: path=%s status=%s cost_time=%s " % (time.time(), path, status, cost_time / 10))
+
+    time.sleep(60)
 
 
 if __name__ == '__main__':
-    logger = _get_logger('./log/api.log')
-    serverAddress = ('', 80)
-    server = BaseHTTPServer.HTTPServer(serverAddress, RequestHandler)
-    server.serve_forever()
+    while True:
+        logger = _get_logger('./log/api.log')
+        logger2 = _get_logger('./log/isis/access.log')
+        printLog()
+    # serverAddress = ('', 80)
+    # server = BaseHTTPServer.HTTPServer(serverAddress, RequestHandler)
+    # server.serve_forever()

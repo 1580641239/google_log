@@ -9,7 +9,7 @@ RUN pip3 install --no-cache-dir flask
 
 ENV APP /test_demo
 WORKDIR $APP
-RUN mkdir log
+RUN mkdir -r log/isis
 COPY ./app.py .
 EXPOSE 80
 CMD ["python","app.py"]
